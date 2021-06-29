@@ -17,6 +17,8 @@ resource "azurerm_resource_group" "myresourcegroup" {
 
   tags = {
     environment = "Production"
+    billable = "false"
+    department = "whatever"
   }
 }
 
@@ -25,6 +27,12 @@ resource "azurerm_virtual_network" "vnet" {
   location            = azurerm_resource_group.myresourcegroup.location
   address_space       = [var.address_space]
   resource_group_name = azurerm_resource_group.myresourcegroup.name
+  
+  tags = {
+    environment = "Production"
+    billable = "false"
+    department = "whatever"
+  }
 }
 
 resource "azurerm_subnet" "subnet" {
@@ -32,12 +40,24 @@ resource "azurerm_subnet" "subnet" {
   virtual_network_name = azurerm_virtual_network.vnet.name
   resource_group_name  = azurerm_resource_group.myresourcegroup.name
   address_prefixes     = [var.subnet_prefix]
+  
+  tags = {
+    environment = "Production"
+    billable = "false"
+    department = "whatever"
+  }
 }
 
 resource "azurerm_network_security_group" "catapp-sg" {
   name                = "${var.prefix}-sg"
   location            = var.location
   resource_group_name = azurerm_resource_group.myresourcegroup.name
+  
+  tags = {
+    environment = "Production"
+    billable = "false"
+    department = "whatever"
+  }
 
   security_rule {
     name                       = "HTTP"
@@ -80,6 +100,12 @@ resource "azurerm_network_interface" "catapp-nic" {
   name                      = "${var.prefix}-catapp-nic"
   location                  = var.location
   resource_group_name       = azurerm_resource_group.myresourcegroup.name
+  
+  tags = {
+    environment = "Production"
+    billable = "false"
+    department = "whatever"
+  }
 
   ip_configuration {
     name                          = "${var.prefix}ipconfig"
@@ -92,6 +118,12 @@ resource "azurerm_network_interface" "catapp-nic" {
 resource "azurerm_network_interface_security_group_association" "catapp-nic-sg-ass" {
   network_interface_id      = azurerm_network_interface.catapp-nic.id
   network_security_group_id = azurerm_network_security_group.catapp-sg.id
+  
+  tags = {
+    environment = "Production"
+    billable = "false"
+    department = "whatever"
+  }
 }
 
 resource "azurerm_public_ip" "catapp-pip" {
@@ -100,6 +132,12 @@ resource "azurerm_public_ip" "catapp-pip" {
   resource_group_name = azurerm_resource_group.myresourcegroup.name
   allocation_method   = "Dynamic"
   domain_name_label   = "${var.prefix}-meow"
+  
+  tags = {
+    environment = "Production"
+    billable = "false"
+    department = "whatever"
+  }
 }
 
 resource "azurerm_virtual_machine" "catapp" {
@@ -110,6 +148,12 @@ resource "azurerm_virtual_machine" "catapp" {
 
   network_interface_ids         = [azurerm_network_interface.catapp-nic.id]
   delete_os_disk_on_termination = "true"
+  
+  tags = {
+    environment = "Production"
+    billable = "false"
+    department = "whatever"
+  }
 
   storage_image_reference {
     publisher = var.image_publisher
@@ -135,8 +179,6 @@ resource "azurerm_virtual_machine" "catapp" {
     disable_password_authentication = false
   }
 
-  tags = {}
-
   # Added to allow destroy to work correctly.
   depends_on = [azurerm_network_interface_security_group_association.catapp-nic-sg-ass]
 }
@@ -157,6 +199,12 @@ resource "null_resource" "configure-cat-app" {
   depends_on = [
     azurerm_virtual_machine.catapp,
   ]
+  
+  tags = {
+    environment = "Production"
+    billable = "false"
+    department = "whatever"
+  }
 
   # Terraform 0.11
   # triggers {
