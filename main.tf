@@ -17,8 +17,8 @@ resource "azurerm_resource_group" "myresourcegroup" {
 
   tags = {
     environment = "Production"
-    billable = "false"
-    department = "whatever"
+    Billable = "false"
+    Department = "whatever"
   }
 }
 
@@ -30,8 +30,8 @@ resource "azurerm_virtual_network" "vnet" {
   
   tags = {
     environment = "Production"
-    billable = "false"
-    department = "whatever"
+    Billable = "false"
+    Department = "whatever"
   }
 }
 
@@ -50,8 +50,8 @@ resource "azurerm_network_security_group" "catapp-sg" {
   
   tags = {
     environment = "Production"
-    billable = "false"
-    department = "whatever"
+    Billable = "false"
+    Department = "whatever"
   }
 
   security_rule {
@@ -125,8 +125,8 @@ resource "azurerm_public_ip" "catapp-pip" {
   
   tags = {
     environment = "Production"
-    billable = "false"
-    department = "whatever"
+    Billable = "false"
+    Department = "whatever"
   }
 }
 
@@ -141,8 +141,8 @@ resource "azurerm_virtual_machine" "catapp" {
   
   tags = {
     environment = "Production"
-    billable = "false"
-    department = "whatever"
+    Billable = "false"
+    Department = "whatever"
   }
 
   storage_image_reference {
