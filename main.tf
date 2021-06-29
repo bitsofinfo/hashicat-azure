@@ -189,12 +189,7 @@ resource "null_resource" "configure-cat-app" {
   depends_on = [
     azurerm_virtual_machine.catapp,
   ]
-  
-  tags = {
-    environment = "Production"
-    billable = "false"
-    department = "whatever"
-  }
+ 
 
   # Terraform 0.11
   # triggers {
