@@ -41,11 +41,6 @@ resource "azurerm_subnet" "subnet" {
   resource_group_name  = azurerm_resource_group.myresourcegroup.name
   address_prefixes     = [var.subnet_prefix]
   
-  tags = {
-    environment = "Production"
-    billable = "false"
-    department = "whatever"
-  }
 }
 
 resource "azurerm_network_security_group" "catapp-sg" {
